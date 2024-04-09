@@ -4,7 +4,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import listPlugin from "@fullcalendar/list";
+import { EventData } from "../../data/EventsData";
 import {
   Box,
   List,
@@ -12,14 +14,19 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  IconButton,
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
 
 const Calendar = () => {
+  const { isCollapsed } = useIsCollapsedContext();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [isCalendarSelected, setIsCalendarSelected] = useState(true);
+  const [currentEvents, setCurrentEvents] = useState(EventData);
+  const [eventSelected, setEventSelected] = useState([]);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -38,28 +45,52 @@ const Calendar = () => {
   };
 
   const handleEventClick = (selected) => {
-    if (
-      window.confirm(
-        `Are you sure you want to remove this event ${selected.event.title}`
-      )
-    ) {
-      selected.event.remove();
-    }
+    console.log(selected.event);
+    // if (
+    //   window.confirm(
+    //     `Are you sure you want to remove this event ${selected.event.title}`
+    //   )
+    // ) {
+    //   selected.event.remove();
+    // }
+  };
+
+  const handleEventDetails = (id) => {
+    setIsCalendarSelected(false);
+    const selectedEvent = currentEvents.find((event) => event.id === id);
+    const { _def, _instance } = selectedEvent;
+    const EventData = {
+      title: selectedEvent.title,
+      start: selectedEvent.start,
+      end: selectedEvent.end,
+      allDay: selectedEvent.allDay,
+      id: selectedEvent.id,
+      _def: _def,
+      _instance: _instance,
+    };
+    setEventSelected(EventData);
   };
 
   return (
-    <Box m={"20px"}>
+    <Box m={"20px"} position={"relative"}>
       <Header
         title={"CALENDAR"}
         subtitle={"Change and add events to your Calendar"}
       ></Header>
-      <Box display={"flex"} justifyContent={"space-between"}>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        position={"absolute"}
+        width={isCollapsed ? "90vw" : "80vw"}
+      >
         {/* Calendar Sidebar */}
         <Box
-          flex="1 1 20%"
+          height={"75vh"}
+          overflow={"auto"}
+          flex="1 1 40%"
           backgroundColor={colors.primary[400]}
           p="15px"
-          borderRadius="4px"
+          borderRadius="5px"
         >
           <Typography variant="h5">Events</Typography>
           <List>
@@ -83,11 +114,13 @@ const Calendar = () => {
                       })}
                     </Typography>
                   }
+                  onClick={() => handleEventDetails(event.id)}
                 />
               </ListItem>
             ))}
           </List>
         </Box>
+
         {/* Calendar */}
         <Box
           flex="1 1 100%"
@@ -96,42 +129,66 @@ const Calendar = () => {
             "& .fc-list-day-cushion": {
               backgroundColor: colors.primary[400],
             },
+            "& .fc-scrollgrid": {
+              backgroundColor: colors.primary[400],
+            },
+            "& th": {
+              backgroundColor: colors.blueAccent[600],
+            },
+            "& .fc-list-event:hover td": {
+              backgroundColor: `${colors.blueAccent[600]} !important `,
+            },
           }}
         >
-          <FullCalendar
-            height="75vh"
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            select={handleDateClick}
-            eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
-            initialEvents={[
-              {
-                id: "12315",
-                title: "All-day event",
-                date: "2024-04-14",
-              },
-              {
-                id: "5123",
-                title: "Timed event",
-                date: "2024-04-28",
-              },
-            ]}
-          />
+          {isCalendarSelected ? (
+            <FullCalendar
+              height="75vh"
+              plugins={[
+                dayGridPlugin,
+                timeGridPlugin,
+                interactionPlugin,
+                listPlugin,
+              ]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+              }}
+              initialView="dayGridMonth"
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              // dayMaxEvents={true}
+              select={handleDateClick}
+              eventClick={handleEventClick}
+              eventsSet={(events) => setCurrentEvents(events)}
+              initialEvents={currentEvents}
+              nowIndicator={true}
+            />
+          ) : (
+            <Box
+              backgroundColor={colors.primary[400]}
+              p={"10px"}
+              borderRadius={"5px"}
+            >
+              <Box
+                className=""
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <IconButton
+                  type="button"
+                  sx={{ p: 1 }}
+                  title="Go back to Calendar"
+                  onClick={() => setIsCalendarSelected(true)}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h3" color={colors.greenAccent[400]}>
+                  Event Details
+                </Typography>
+              </Box>
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
