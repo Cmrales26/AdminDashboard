@@ -95,6 +95,10 @@ const Team = () => {
             background: `${colors.blueAccent[700]} !important`,
             borderBottom: "none",
           },
+          "& .css-190e77d": {
+            background: `${colors.blueAccent[700]} !important`,
+            borderBottom: "none",
+          },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.primary[400],
           },
