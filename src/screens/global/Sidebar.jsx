@@ -15,6 +15,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
 
 // eslint-disable-next-line react/prop-types
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -39,12 +40,18 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  console.log(selected);
+
+  const { isCollapsed, setIsCollapsed } = useIsCollapsedContext();
+
   return (
     <Box minHeight="100% !important">
-      <Sidebar collapsed={isCollapsed} backgroundColor={colors.primary[400]}>
+      <Sidebar
+        onBackdropClick={() => setIsCollapsed(false)}
+        collapsed={isCollapsed}
+        backgroundColor={colors.primary[400]}
+        // breakPoint="always"
+      >
         <Menu
           menuItemStyles={{
             button: ({ level, active }) => {

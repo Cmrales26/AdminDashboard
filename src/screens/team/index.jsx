@@ -8,10 +8,15 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
+import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { isCollapsed } = useIsCollapsedContext();
+
+  console.log(isCollapsed);
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -49,6 +54,7 @@ const Team = () => {
             p="5px"
             display="flex"
             justifyContent="center"
+            alignItems="center"
             backgroundColor={
               access === "admin"
                 ? colors.greenAccent[600]
@@ -68,11 +74,13 @@ const Team = () => {
     },
   ];
   return (
-    <Box m="20px">
+    <Box m="20px" position={"relative"}>
       <Header title={"TEAM"} subtitle={"Manage the Team members"}></Header>
       <Box
         m="10px 0 0 0"
         height="75vh"
+        position={"absolute"}
+        width={"100%"}
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -88,7 +96,7 @@ const Team = () => {
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[600],
+            backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",

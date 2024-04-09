@@ -43,11 +43,13 @@ const Invoices = () => {
   ];
 
   return (
-    <Box m="20px">
+    <Box m="20px" position={"relative"}>
       <Header title="INVOICES" subtitle="List of Invoice Balances" />
       <Box
         m="10px 0 0 0"
         height="75vh"
+        position={"absolute"}
+        width={"100%"}
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -63,7 +65,7 @@ const Invoices = () => {
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[600],
+            backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
