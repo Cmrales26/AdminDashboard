@@ -37,3 +37,6 @@ body,
 .css-1wvake5 {
   border: none !important;
 }
+.ps-sidebar-container::-webkit-scrollbar {
+  width: 0px !important;
+}

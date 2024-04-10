@@ -56,7 +56,7 @@ const Contacts = () => {
         subtitle={"The list of contact for futures references"}
       ></Header>
       <Box
-        m="10px 0 0 0"
+        m="0px 0 0 0"
         height="75vh"
         position={"absolute"}
         width={"100%"}

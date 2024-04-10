@@ -45,12 +45,15 @@ const SideBar = () => {
   const { isCollapsed, setIsCollapsed } = useIsCollapsedContext();
 
   return (
-    <Box minHeight="100% !important">
+    <Box
+      sx={{
+        "& .ps-sidebar-root": { height: "100%" },
+      }}
+    >
       <Sidebar
         onBackdropClick={() => setIsCollapsed(false)}
         collapsed={isCollapsed}
-        backgroundColor={colors.primary[400]}
-        // breakPoint="always"
+        backgroundColor={colors.primary[500]}
       >
         <Menu
           menuItemStyles={{
@@ -68,6 +71,7 @@ const SideBar = () => {
         >
           {/* LOGO AND MENU ICON */}
           <MenuItem
+            className="MainItem"
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
@@ -86,7 +90,10 @@ const SideBar = () => {
                 <Typography variant="h3" color={colors.grey[100]}>
                   ADMINS
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton
+                  onClick={() => setIsCollapsed(!isCollapsed)}
+                  sx={{ padding: "0" }}
+                >
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>

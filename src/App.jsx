@@ -10,6 +10,7 @@ import Contacts from "./screens/contacts/index";
 import { IsCollapsedProvider } from "./middleware/IsCollapsed";
 import Form from "./screens/profileForm/index";
 import Calendar from "./screens/calendar/index";
+import Event from "./screens/calendar/CalendarEvents/events";
 // import Bar from "./screens/Bar";
 // import Line from "./screens/Line";
 // import Pie from "./screens/Pie";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/form" element={<Form />} />
                 <Route path="/calendar" element={<Calendar />} />
+                <Route path="/event/:eventId" element={<Event />} />
                 {/* <Route path="/bar" element={<Bar />} /> */}
                 {/* <Route path="/line" element={<Line />} /> */}
                 {/* <Route path="/pie" element={<Pie />} /> */}
