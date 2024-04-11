@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -8,14 +9,13 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
-import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
+// import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
 
-const Team = () => {
+const Team = ({ setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { isCollapsed } = useIsCollapsedContext();
 
-  console.log(isCollapsed);
+  setSelected("Manage Team");
 
   const columns = [
     { field: "id", headerName: "ID" },

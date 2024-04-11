@@ -12,6 +12,7 @@ import Form from "./screens/profileForm/index";
 import Calendar from "./screens/calendar/index";
 import Event from "./screens/calendar/CalendarEvents/events";
 import CreateEvent from "./screens/calendar/CalendarEvents/CreateEvent";
+import { useState } from "react";
 // import Bar from "./screens/Bar";
 // import Line from "./screens/Line";
 // import Pie from "./screens/Pie";
@@ -20,22 +21,38 @@ import CreateEvent from "./screens/calendar/CalendarEvents/CreateEvent";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [selected, setSelected] = useState("Dashboard");
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <IsCollapsedProvider>
           <CssBaseline />
           <div className="app">
-            <SideBar />
+            <SideBar selected={selected} setSelected={setSelected} />
             <main className="content">
               <TopBar />
               <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/team" element={<Team />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/invoices" element={<Invoices />} />
-                <Route path="/form" element={<Form />} />
-                <Route path="/calendar" element={<Calendar />} />
+                <Route
+                  path="/team"
+                  element={<Team setSelected={setSelected} />}
+                />
+                <Route
+                  path="/contacts"
+                  element={<Contacts setSelected={setSelected} />}
+                />
+                <Route
+                  path="/invoices"
+                  element={<Invoices setSelected={setSelected} />}
+                />
+                <Route
+                  path="/form"
+                  element={<Form setSelected={setSelected} />}
+                />
+                <Route
+                  path="/calendar"
+                  element={<Calendar setSelected={setSelected} />}
+                />
                 <Route path="/CreateEvent" element={<CreateEvent />} />
                 <Route path="/event/:eventId" element={<Event />} />
                 {/* <Route path="/bar" element={<Bar />} /> */}

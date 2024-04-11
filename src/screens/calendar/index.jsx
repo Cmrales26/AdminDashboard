@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { EventData } from "../../data/EventsData";
@@ -8,7 +10,8 @@ import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
 import CalendarComponent from "./calendar";
 import EventList from "./eventList";
 
-const Calendar = () => {
+const Calendar = ({ setSelected }) => {
+  setSelected("Calendar");
   const navigate = useNavigate();
   const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const { isCollapsed } = useIsCollapsedContext();
@@ -25,18 +28,6 @@ const Calendar = () => {
     let endDate = selected.endStr;
 
     navigate("/CreateEvent", { state: { startDate, endDate } });
-    // const title = prompt("Please enter a new title for your event");
-    // const calendarApi = selected.view.calendar;
-    // calendarApi.unselect();
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: `${selected.dateStr}-${title}`,
-    //     title,
-    //     start: selected.startStr,
-    //     end: selected.endStr,
-    //     allDay: selected.allDay,
-    //   });
-    // }
   };
 
   const handleEventClick = (selected) => {
