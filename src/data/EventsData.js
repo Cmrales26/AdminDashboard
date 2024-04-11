@@ -12,7 +12,6 @@ export const EventData = [
     allDay: false,
     status: "in progress",
   },
-
   {
     id: "g7h8i9",
     title: "Team Building Retreat",
@@ -23,7 +22,6 @@ export const EventData = [
     description:
       "Join us for an exciting team building retreat where we will engage in various activities aimed at fostering teamwork, communication, and collaboration. This retreat offers a great opportunity to bond with your colleagues, build trust, and enhance morale. Get ready for a memorable experience filled with fun challenges and meaningful connections!",
   },
-
   {
     id: "j1k2l3",
     title: "Quarterly Review Meeting",
@@ -31,7 +29,6 @@ export const EventData = [
     allDay: false,
     status: "in progress",
   },
-
   {
     id: "m4n5o6",
     title: "Marketing Campaign Kickoff",
@@ -40,7 +37,6 @@ export const EventData = [
     allDay: false,
     status: "pending",
   },
-
   {
     id: "p7q8r9",
     title: "Training Workshop",

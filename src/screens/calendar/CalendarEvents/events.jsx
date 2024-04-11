@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useIsCollapsedContext } from "../../../middleware/IsCollapsed";
 import Header from "../../../components/Header";
-import { EventData } from "../../../data/EventsData";
+// import { EventData } from "../../../data/EventsData";
 import EventList from "../eventList";
 import { useEffect, useState } from "react";
 import { formatDate } from "@fullcalendar/core";
@@ -12,6 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { tokens } from "../../../theme";
 
 const events = () => {
+  const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { isCollapsed } = useIsCollapsedContext();
@@ -22,8 +23,15 @@ const events = () => {
 
   useEffect(() => {
     const selectedEvent = EventData.find((event) => event.id === eventId);
-
+    if (selectedEvent === undefined) {
+      if (EventData[0] === undefined) {
+        window.location.href = "/calendar";
+        return;
+      }
+      window.location.href = `/event/${EventData[0].id}`;
+    }
     setEventSelected(selectedEvent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventId, currentEvents]);
 
   const handleEventDelete = (selected) => {
@@ -33,8 +41,8 @@ const events = () => {
       )
     ) {
       const newListEvent = currentEvents.filter((e) => e.id !== selected.id);
+      localStorage.setItem("EventData", JSON.stringify(newListEvent));
       setCurrentEvents(newListEvent);
-      window.location.href = `/event/${newListEvent[0].id}`;
     }
   };
   return (

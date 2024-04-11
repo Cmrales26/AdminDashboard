@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EventData } from "../../data/EventsData";
+// import { EventData } from "../../data/EventsData";
 import { Box, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
@@ -8,6 +8,7 @@ import CalendarComponent from "./calendar";
 import EventList from "./eventList";
 
 const Calendar = () => {
+  const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const { isCollapsed } = useIsCollapsedContext();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
