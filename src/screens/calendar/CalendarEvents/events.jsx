@@ -3,6 +3,7 @@ import { useIsCollapsedContext } from "../../../middleware/IsCollapsed";
 import Header from "../../../components/Header";
 // import { EventData } from "../../../data/EventsData";
 import EventList from "../eventList";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { formatDate } from "@fullcalendar/core";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -12,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import { tokens } from "../../../theme";
 
 const events = () => {
+  const navigate = useNavigate();
   const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -25,7 +27,7 @@ const events = () => {
     const selectedEvent = EventData.find((event) => event.id === eventId);
     if (selectedEvent === undefined) {
       if (EventData[0] === undefined) {
-        window.location.href = "/calendar";
+        navigate("/calendar");
         return;
       }
       window.location.href = `/event/${EventData[0].id}`;
@@ -93,7 +95,7 @@ const events = () => {
                     <ArrowBackIcon />
                   </IconButton>
                 </Link>
-                <Typography variant="h3" color={colors.greenAccent[400]}>
+                <Typography variant="h3" color={colors.blueAccent[400]}>
                   Event Details
                 </Typography>
               </Box>
@@ -184,7 +186,10 @@ const events = () => {
             </Box>
 
             {/* Delete */}
-            <Box mt={"2rem"} display={"flex"} justifyContent={"end"}>
+            <Box mt={"2rem"} display={"flex"} justifyContent={"space-between"}>
+              <Typography variant="p" ml={"1rem"} color={colors.grey[300]}>
+                Event id: {eventSelected.id}
+              </Typography>
               <Button
                 variant="contained"
                 color="error"

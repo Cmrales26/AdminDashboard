@@ -45,11 +45,7 @@ const SideBar = () => {
   const { isCollapsed, setIsCollapsed } = useIsCollapsedContext();
 
   return (
-    <Box
-      sx={{
-        "& .ps-sidebar-root": { height: "100%" },
-      }}
-    >
+    <Box>
       <Sidebar
         onBackdropClick={() => setIsCollapsed(false)}
         collapsed={isCollapsed}

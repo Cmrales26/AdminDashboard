@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import { EventData } from "../../data/EventsData";
 import { Box, useTheme } from "@mui/material";
 import Header from "../../components/Header";
@@ -8,14 +9,22 @@ import CalendarComponent from "./calendar";
 import EventList from "./eventList";
 
 const Calendar = () => {
+  const navigate = useNavigate();
   const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const { isCollapsed } = useIsCollapsedContext();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState(EventData);
 
+  useEffect(() => {
+    setCurrentEvents(EventData);
+  }, []);
+
   const handleDateClick = (selected) => {
-    console.log(selected.start);
+    let startDate = selected.startStr;
+    let endDate = selected.endStr;
+
+    navigate("/CreateEvent", { state: { startDate, endDate } });
     // const title = prompt("Please enter a new title for your event");
     // const calendarApi = selected.view.calendar;
     // calendarApi.unselect();
@@ -36,7 +45,7 @@ const Calendar = () => {
   };
 
   const handleEventDetails = (id) => {
-    window.location.href = `/event/${id}`;
+    navigate(`/event/${id}`);
   };
 
   return (
