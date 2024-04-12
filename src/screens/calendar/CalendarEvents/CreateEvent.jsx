@@ -27,24 +27,31 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { tokens } from "../../../theme";
 
 const CreateEvent = () => {
+  const { state } = useLocation();
   const EventData = JSON.parse(localStorage.getItem("EventData")) || [];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const [checked, setChecked] = useState(false);
-  const [startDate, setStartDate] = useState(dayjs(state.startDate));
-  const [endDate, setEndDate] = useState(dayjs(state.endDate));
-  const [startHour, setStarHour] = useState(dayjs(`${state.endDate} 00:00`));
-  const [endHour, setEndHour] = useState(dayjs(`${state.endDate} 00:00`));
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [startHour, setStartHour] = useState(null);
+  const [endHour, setEndHour] = useState(null);
   const [status, setStatus] = useState("pending");
 
   useEffect(() => {
-    if (!state) {
+    if (!state || state === null) {
       navigate("/calendar");
+      return; // Exit early if state is not available
     }
+
+    setStartDate(dayjs(state.startDate));
+    setEndDate(dayjs(state.endDate));
+    setStartHour(dayjs(`${state.endDate} 00:00`));
+    setEndHour(dayjs(`${state.endDate} 00:00`));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
@@ -267,7 +274,7 @@ const CreateEvent = () => {
                     <TimePicker
                       label="Start Hour"
                       onBlur={handleBlur}
-                      onChange={(newHour) => setStarHour(newHour, false)}
+                      onChange={(newHour) => setStartHour(newHour, false)}
                       value={startHour}
                       name="start"
                       slotProps={{
