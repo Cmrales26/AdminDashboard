@@ -9,7 +9,6 @@ const CalendarComponent = ({
   handleDateClick,
   handleEventClick,
   currentEvents,
-  setCurrentEvents,
 }) => {
   return (
     <FullCalendar
@@ -27,7 +26,6 @@ const CalendarComponent = ({
       dayMaxEvents={true}
       select={handleDateClick}
       eventClick={handleEventClick}
-      eventsSet={(events) => setCurrentEvents(events)}
       initialEvents={currentEvents}
       nowIndicator={true}
     />
