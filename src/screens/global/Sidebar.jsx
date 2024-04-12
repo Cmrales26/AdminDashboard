@@ -118,7 +118,7 @@ const SideBar = ({ selected, setSelected }) => {
                   Cmrales26
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[300]}>
-                  VP Fancy Admin
+                  Admin Dashboard
                 </Typography>
               </Box>
             </Box>

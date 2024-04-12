@@ -21,7 +21,7 @@ const CalendarComponent = ({
         right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
       }}
       initialView="dayGridMonth"
-      editable={true}
+      // editable={true}
       selectable={true}
       selectMirror={true}
       dayMaxEvents={true}

@@ -11,6 +11,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Box, Typography, useTheme, IconButton, Button } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { tokens } from "../../../theme";
+import ModalAlerts from "../../../components/ModalAlerts";
 
 const events = () => {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ const events = () => {
   const { isCollapsed } = useIsCollapsedContext();
   const [currentEvents, setCurrentEvents] = useState(EventData);
   const [eventSelected, setEventSelected] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState([]);
 
   let { eventId } = useParams();
 
@@ -37,15 +40,23 @@ const events = () => {
   }, [eventId, currentEvents]);
 
   const handleEventDelete = (selected) => {
-    if (
-      window.confirm(
-        `Are you sure you want to remove this event ${selected.title}`
-      )
-    ) {
-      const newListEvent = currentEvents.filter((e) => e.id !== selected.id);
-      localStorage.setItem("EventData", JSON.stringify(newListEvent));
-      setCurrentEvents(newListEvent);
-    }
+    setOpen(true);
+    setSelected(selected);
+    // if (
+    //   window.confirm(
+    //     `Are you sure you want to remove this event ${selected.title}`
+    //   )
+    // ) {
+    //   const newListEvent = currentEvents.filter((e) => e.id !== selected.id);
+    //   localStorage.setItem("EventData", JSON.stringify(newListEvent));
+    //   setCurrentEvents(newListEvent);
+    // }
+  };
+
+  const deleteEvent = () => {
+    const newListEvent = currentEvents.filter((e) => e.id !== selected.id);
+    localStorage.setItem("EventData", JSON.stringify(newListEvent));
+    setCurrentEvents(newListEvent);
   };
   return (
     <Box m={"20px"} position={"relative"}>
@@ -201,6 +212,15 @@ const events = () => {
           </Box>
         </Box>
       </Box>
+      <ModalAlerts
+        open={open}
+        setOpen={setOpen}
+        title={"Delete Event"}
+        text={`Are you sure you want to remove this event ${selected.title}`}
+        confirmAction={"Delete Event"}
+        denyAction={"Cancel"}
+        onConfirm={deleteEvent}
+      />
     </Box>
   );
 };
