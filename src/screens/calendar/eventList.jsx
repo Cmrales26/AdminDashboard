@@ -12,6 +12,7 @@ import {
 import { tokens } from "../../theme";
 
 const eventList = ({ currentEvents }) => {
+  // FILTERS
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
