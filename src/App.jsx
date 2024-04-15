@@ -14,10 +14,10 @@ import Calendar from "./screens/calendar/index";
 import Event from "./screens/calendar/CalendarEvents/events";
 import CreateEvent from "./screens/calendar/CalendarEvents/CreateEvent";
 import FAQ from "./screens/FAQ/index";
-// import Bar from "./screens/Bar";
-// import Line from "./screens/Line";
-// import Pie from "./screens/Pie";
-// import Geography from "./screens/geography";
+import Bar from "./screens/bar/index";
+import Pie from "./screens/pie/index";
+import Line from "./screens/line/index";
+import Geography from "./screens/geography";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -59,10 +59,22 @@ function App() {
                   path="/faq"
                   element={<FAQ setSelected={setSelected} />}
                 />
-                {/* <Route path="/bar" element={<Bar />} /> */}
-                {/* <Route path="/line" element={<Line />} /> */}
-                {/* <Route path="/pie" element={<Pie />} /> */}
-                {/* <Route path="/geography" element={<Geography />} /> */}
+                <Route
+                  path="/bar"
+                  element={<Bar setSelected={setSelected} />}
+                />
+                <Route
+                  path="/pie"
+                  element={<Pie setSelected={setSelected} />}
+                />
+                <Route
+                  path="/line"
+                  element={<Line setSelected={setSelected} />}
+                />
+                <Route
+                  path="/geography"
+                  element={<Geography setSelected={setSelected} />}
+                />
               </Routes>
             </main>
           </div>

@@ -59,7 +59,7 @@ const SideBar = ({ selected, setSelected }) => {
                 return {
                   backgroundColor: active ? "#6870fa" : undefined,
                   "&:hover": {
-                    backgroundColor: "#335B8C !important",
+                    backgroundColor: "#6870fa !important",
                   },
                 };
               }
