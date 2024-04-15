@@ -11,7 +11,6 @@ const Geography = ({ isDashboard = false }) => {
     <ResponsiveChoropleth
       data={data}
       theme={{
-        background: colors.primary[500],
         axis: {
           domain: {
             line: {
@@ -45,7 +44,7 @@ const Geography = ({ isDashboard = false }) => {
       domain={[0, 99999]}
       label="properties.name"
       valueFormat=".3s"
-      projectionScale={isDashboard ? 40 : 190}
+      projectionScale={isDashboard ? 65 : 190}
       projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
       projectionRotation={[0, 0, 0]}
       borderWidth={1.5}

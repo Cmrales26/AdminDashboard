@@ -12,11 +12,7 @@ const FaqCard = ({ FAQinfo }) => {
   return (
     <Box>
       {FAQinfo.map((faq) => (
-        <Accordion
-          key={faq.id}
-          sx={{ backgroundColor: colors.primary[500] }}
-          defaultExpanded
-        >
+        <Accordion key={faq.id} sx={{ backgroundColor: colors.primary[500] }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${faq.id}-content`}
