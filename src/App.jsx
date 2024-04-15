@@ -2,6 +2,7 @@ import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import TopBar from "./screens/global/Topbar";
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import SideBar from "./screens/global/Sidebar";
 import Dashboard from "./screens/dashboard/index";
 import Team from "./screens/team/index";
@@ -12,11 +13,10 @@ import Form from "./screens/profileForm/index";
 import Calendar from "./screens/calendar/index";
 import Event from "./screens/calendar/CalendarEvents/events";
 import CreateEvent from "./screens/calendar/CalendarEvents/CreateEvent";
-import { useState } from "react";
+import FAQ from "./screens/FAQ/index";
 // import Bar from "./screens/Bar";
 // import Line from "./screens/Line";
 // import Pie from "./screens/Pie";
-// import FAQ from "./screens/faq";
 // import Geography from "./screens/geography";
 
 function App() {
@@ -55,10 +55,13 @@ function App() {
                 />
                 <Route path="/CreateEvent" element={<CreateEvent />} />
                 <Route path="/event/:eventId" element={<Event />} />
+                <Route
+                  path="/faq"
+                  element={<FAQ setSelected={setSelected} />}
+                />
                 {/* <Route path="/bar" element={<Bar />} /> */}
                 {/* <Route path="/line" element={<Line />} /> */}
                 {/* <Route path="/pie" element={<Pie />} /> */}
-                {/* <Route path="/faq" element={<FAQ />} /> */}
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Routes>
             </main>
