@@ -12,6 +12,7 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { Link } from "react-router-dom";
 const DashBoard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -169,9 +170,11 @@ const DashBoard = () => {
             </Box>
           </Box>
 
-          <Box height="250px" m="-20px 0 0 0" p={"20px"}>
-            <LineChart isDashboard={true} />
-          </Box>
+          <Link to={"/line"}>
+            <Box height="250px" m="-20px 0 0 0" p={"20px"}>
+              <LineChart isDashboard={true} />
+            </Box>
+          </Link>
         </Box>
         <Box
           gridColumn="span 4"
@@ -266,9 +269,11 @@ const DashBoard = () => {
           >
             Sales Quantity
           </Typography>
-          <Box height="250px" mt="-20px" color={"black"}>
-            <BarChart isDashboard={true} marginRight={50} />
-          </Box>
+          <Link to={"/bar"}>
+            <Box height="250px" mt="-20px" color={"black"}>
+              <BarChart isDashboard={true} marginRight={50} />
+            </Box>
+          </Link>
         </Box>
 
         {/* GEO */}
@@ -287,9 +292,11 @@ const DashBoard = () => {
           >
             Geography Based Traffic
           </Typography>
-          <Box height="200px" color={"black"}>
-            <GeographyChart isDashboard={true} />
-          </Box>
+          <Link to={"/geography"}>
+            <Box height="200px" color={"black"}>
+              <GeographyChart isDashboard={true} />
+            </Box>
+          </Link>
         </Box>
       </Box>
     </Box>
