@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
@@ -9,11 +9,12 @@ import {
   SecurityOutlined,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
-// import { useIsCollapsedContext } from "../../middleware/IsCollapsed";
+import { useNavigate } from "react-router-dom";
 
 const Team = ({ setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
   setSelected("Manage Team");
 
@@ -75,7 +76,23 @@ const Team = ({ setSelected }) => {
   ];
   return (
     <Box m="20px" position={"relative"}>
-      <Header title={"TEAM"} subtitle={"Manage the Team members"}></Header>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Header title={"TEAM"} subtitle={"Manage the Team members"}></Header>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ height: "50px" }}
+          onClick={() => {
+            navigate("/form");
+          }}
+        >
+          <Typography>Create Team Member</Typography>
+        </Button>
+      </Box>
       <Box
         m="10px 0 0 0"
         height="75vh"

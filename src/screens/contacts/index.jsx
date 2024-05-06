@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
-import { Box, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 
 const Contacts = ({ setSelected }) => {
   setSelected("Contacts Information");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "registrarId", headerName: "Register ID" },
@@ -53,10 +55,26 @@ const Contacts = ({ setSelected }) => {
   ];
   return (
     <Box m="20px" position={"relative"}>
-      <Header
-        title={"CONTACTS"}
-        subtitle={"The list of contact for futures references"}
-      ></Header>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Header
+          title={"CONTACTS"}
+          subtitle={"The list of contact for futures references"}
+        ></Header>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ height: "50px" }}
+          onClick={() => {
+            navigate("/form", { state: { provider: "PROVIDER" } });
+          }}
+        >
+          <Typography>Create New Provider</Typography>
+        </Button>
+      </Box>
       <Box
         m="0px 0 0 0"
         height="75vh"
