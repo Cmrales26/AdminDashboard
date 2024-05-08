@@ -1,22 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Box, Button, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import {
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
 import {
   AdminPanelSettingsOutlined,
   LockOpenOutlined,
   SecurityOutlined,
+  EditOutlined,
+  DeleteOutline,
 } from "@mui/icons-material";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Team = ({ setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
 
-  setSelected("Manage Team");
+  useEffect(() => {
+    setSelected("Manage Team");
+  }, []);
 
   const columns = [
     { field: "id", headerName: "ID" },
@@ -24,14 +37,16 @@ const Team = ({ setSelected }) => {
       field: "name",
       headerName: "Name",
       flex: 1,
-      cellClassName: "name-column-cell",
+    },
+    {
+      field: "lastName",
+      headerName: "Last Name",
+      flex: 1,
     },
     {
       field: "age",
       headerName: "Age",
       type: "number",
-      HeaderAling: "left",
-      aling: "left",
     },
     {
       field: "phone",
@@ -44,32 +59,66 @@ const Team = ({ setSelected }) => {
       flex: 1,
     },
     {
-      field: "access",
-      headerName: "access Level",
+      field: "country",
+      headerName: "Country",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+    },
+    {
+      field: "role",
+      headerName: "Rol Level",
+      flex: 1,
+      renderCell: ({ row: { role } }) => {
         return (
           <Box
             width="60%"
             m="0 auto"
+            mt={"10px"}
             p="5px"
             display="flex"
             justifyContent="center"
             alignItems="center"
             backgroundColor={
-              access === "admin"
+              role === "Admin"
                 ? colors.greenAccent[600]
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlined />}
-            {access === "manager" && <SecurityOutlined />}
-            {access === "user" && <LockOpenOutlined />}
+            {role === "Admin" && <AdminPanelSettingsOutlined />}
+            {role === "Manager" && <SecurityOutlined />}
+            {role === "Seller" && <LockOpenOutlined />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
+              {role}
             </Typography>
           </Box>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <Stack direction="row" spacing={3} mt={"10px"}>
+            <IconButton
+              onClick={() => {
+                console.log(row.id);
+              }}
+            >
+              <EditOutlined />
+            </IconButton>
+
+            <IconButton
+              title="Delete"
+              color="error"
+              onClick={() => {
+                console.log("Delete");
+              }}
+            >
+              <DeleteOutline />
+            </IconButton>
+          </Stack>
         );
       },
     },
@@ -126,11 +175,15 @@ const Team = ({ setSelected }) => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
       >
         <DataGrid
           rows={mockDataTeam}
           columns={columns}
+          slots={{ toolbar: GridToolbar }}
           initialState={{
             pagination: {
               paginationModel: { pageSize: 10, page: 0 },

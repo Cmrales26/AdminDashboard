@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 const Contacts = ({ setSelected }) => {
   setSelected("Contacts Information");
@@ -13,28 +21,35 @@ const Contacts = ({ setSelected }) => {
   const navigate = useNavigate();
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Register ID" },
     {
       field: "name",
       headerName: "Name",
       flex: 1,
-      cellClassName: "name-column-cell",
+    },
+    {
+      field: "lastName",
+      headerName: "Last Name",
+      flex: 1,
     },
     {
       field: "age",
       headerName: "Age",
       type: "number",
-      HeaderAling: "left",
-      aling: "left",
     },
+
     {
       field: "phone",
       headerName: "Phone number",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address ",
+      field: "country",
+      headerName: "Country",
+      flex: 1,
+    },
+    {
+      field: "adress",
+      headerName: "Adress ",
       flex: 1,
     },
     {
@@ -43,7 +58,7 @@ const Contacts = ({ setSelected }) => {
       flex: 1,
     },
     {
-      field: "zipCode",
+      field: "zip",
       headerName: "Zip Code ",
       flex: 1,
     },
@@ -51,6 +66,34 @@ const Contacts = ({ setSelected }) => {
       field: "email",
       headerName: "Email address",
       flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <Stack direction="row" spacing={3} mt={"10px"}>
+            <IconButton
+              onClick={() => {
+                console.log(row.id);
+              }}
+            >
+              <EditOutlined />
+            </IconButton>
+
+            <IconButton
+              title="Delete"
+              color="error"
+              onClick={() => {
+                console.log("Delete");
+              }}
+            >
+              <DeleteOutline />
+            </IconButton>
+          </Stack>
+        );
+      },
     },
   ];
   return (
